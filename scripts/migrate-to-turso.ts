@@ -8,7 +8,7 @@
  */
 
 import { PrismaClient } from "@prisma/client";
-import { PrismaLibSql } from "@prisma/adapter-libsql";
+import { PrismaLibSQL } from "@prisma/adapter-libsql";
 
 // 本地 SQLite client（读取数据）
 const localPrisma = new PrismaClient();
@@ -23,7 +23,7 @@ function createTursoClient() {
     process.exit(1);
   }
 
-  const adapter = new PrismaLibSql({ url, authToken });
+  const adapter = new PrismaLibSQL({ url, authToken });
   return new PrismaClient({ adapter });
 }
 
