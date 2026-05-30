@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { Record } from "@prisma/client";
 import {
   GRADE,
   SUBJECT,
@@ -40,7 +41,7 @@ export async function GET(request: NextRequest) {
     });
 
     // 转换为中文字段名
-    const exportData = records.map((record) => ({
+    const exportData = records.map((record: Record) => ({
       日期: record.recordDate,
       星期: record.weekDay,
       学生姓名: record.studentName,
