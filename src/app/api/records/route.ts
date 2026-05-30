@@ -47,7 +47,7 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error("获取记录失败:", error);
     return NextResponse.json(
-      { error: "获取记录失败" },
+      { error: "获取记录失败", details: String(error) },
       { status: 500 }
     );
   }

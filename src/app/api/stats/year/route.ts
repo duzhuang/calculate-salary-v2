@@ -38,7 +38,7 @@ export async function GET() {
   } catch (error) {
     console.error("获取年度统计失败:", error);
     return NextResponse.json(
-      { error: "获取年度统计失败" },
+      { error: "获取年度统计失败", details: String(error) },
       { status: 500 }
     );
   }
