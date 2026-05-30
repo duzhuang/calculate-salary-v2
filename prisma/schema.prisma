@@ -1,0 +1,41 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Student {
+  id        String   @id @default(cuid())
+  name      String
+  phone     String?
+  grade     String   // "1"-"12"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([name, grade])
+}
+
+model Record {
+  id             String   @id @default(cuid())
+  recordDate     String   // "YYYY-MM-DD"
+  weekDay        String   // "星期一" 等
+  studentName    String
+  studentGrade   String   // "1"-"12"
+  subject        String   // "1"-"9" 对应科目枚举
+  teacherName    String   @default("裴斐然")
+  classTimeStart String   // "HH:MM"
+  classTimeEnd   String   // "HH:MM"
+  classPeriod    Float    // 课时数（自动计算）
+  classMain      String   @default("1") // "1"=正课, "2"=试听
+  classWay       String   @default("2") // "1"=线上, "2"=线下
+  classType      String   @default("1") // "1"=一对一, "2"=小班, "3"=大班
+  salary         Float    // 薪资（自动计算）
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
