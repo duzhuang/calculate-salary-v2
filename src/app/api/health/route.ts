@@ -1,29 +1,22 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
 
 export async function GET() {
-  try {
-    const recordCount = await prisma.record.count();
-    const studentCount = await prisma.student.count();
-    return NextResponse.json({
-      status: "ok",
-      recordCount,
-      studentCount,
-    });
-  } catch (error) {
-    return NextResponse.json(
-      {
-        status: "error",
-        error: String(error),
-        env: {
-          hasTursoUrl: !!process.env.TURSO_DATABASE_URL,
-          hasTursoToken: !!process.env.TURSO_AUTH_TOKEN,
-          tursoUrl: process.env.TURSO_DATABASE_URL,
-          tokenLength: process.env.TURSO_AUTH_TOKEN?.length,
-          tokenPrefix: process.env.TURSO_AUTH_TOKEN?.substring(0, 20),
-        },
-      },
-      { status: 500 }
-    );
-  }
+  const tursoToken = process.env.TURSO_AUTH_TOKEN || "";
+  const vercelOidc = process.env.VERCEL_OIDC_TOKEN || "";
+
+  return NextResponse.json({
+    tursoToken: {
+      length: tursoToken.length,
+      prefix: tursoToken.substring(0, 20),
+      suffix: tursoToken.substring(tursoToken.length - 20),
+    },
+    vercelOidc: {
+      length: vercelOidc.length,
+      prefix: vercelOidc.substring(0, 20),
+    },
+    areSame: tursoToken === vercelOidc,
+    envKeys: Object.keys(process.env).filter(
+      (k) => k.includes("TURSO") || k.includes("AUTH") || k.includes("VERCEL_OIDC")
+    ),
+  });
 }
