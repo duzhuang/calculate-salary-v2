@@ -47,7 +47,15 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error("获取记录失败:", error);
     return NextResponse.json(
-      { error: "获取记录失败", details: String(error) },
+      {
+        error: "获取记录失败",
+        details: String(error),
+        stack: error instanceof Error ? error.stack : undefined,
+        env: {
+          hasTursoUrl: !!process.env.TURSO_DATABASE_URL,
+          hasTursoToken: !!process.env.TURSO_AUTH_TOKEN,
+        },
+      },
       { status: 500 }
     );
   }
