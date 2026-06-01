@@ -8,13 +8,7 @@ export async function GET() {
     return NextResponse.json({ status: "ok", recordCount, studentCount });
   } catch (error) {
     return NextResponse.json(
-      {
-        status: "error",
-        error: String(error),
-        envKeys: Object.keys(process.env).filter(
-          (k) => k.includes("TURSO") || k.includes("AUTH")
-        ),
-      },
+      { status: "error", error: String(error) },
       { status: 500 }
     );
   }
