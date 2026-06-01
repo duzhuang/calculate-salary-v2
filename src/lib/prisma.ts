@@ -3,7 +3,7 @@ import { PrismaLibSQL } from "@prisma/adapter-libsql";
 
 function createPrismaClient() {
   const url = process.env.TURSO_DATABASE_URL;
-  const authToken = process.env.TURSO_AUTH_TOKEN_SECRET || process.env.TURSO_AUTH_TOKEN;
+  const authToken = process.env.TURSO_AUTH_TOKEN_SECRET;
 
   if (url && authToken) {
     const adapter = new PrismaLibSQL({ url, authToken });
