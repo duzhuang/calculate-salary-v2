@@ -9,10 +9,6 @@ export async function GET() {
       status: "ok",
       recordCount,
       studentCount,
-      env: {
-        hasTursoUrl: !!process.env.TURSO_DATABASE_URL,
-        hasTursoToken: !!process.env.TURSO_AUTH_TOKEN,
-      },
     });
   } catch (error) {
     return NextResponse.json(
@@ -22,6 +18,9 @@ export async function GET() {
         env: {
           hasTursoUrl: !!process.env.TURSO_DATABASE_URL,
           hasTursoToken: !!process.env.TURSO_AUTH_TOKEN,
+          tursoUrl: process.env.TURSO_DATABASE_URL,
+          tokenLength: process.env.TURSO_AUTH_TOKEN?.length,
+          tokenPrefix: process.env.TURSO_AUTH_TOKEN?.substring(0, 20),
         },
       },
       { status: 500 }
