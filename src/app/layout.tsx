@@ -1,8 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Nunito, DM_Sans } from "next/font/google";
 import "./globals.css";
-import BottomNav from "@/components/ui/BottomNav";
-import { ToastContainer } from "@/components/ui/Toast";
+import AppShell from "@/components/shared/AppShell";
 
 const nunito = Nunito({
   variable: "--font-heading",
@@ -41,9 +40,7 @@ export default function RootLayout({
       className={`${nunito.variable} ${dmSans.variable} h-full`}
     >
       <body className="min-h-full bg-gray-50 font-[family-name:var(--font-body)]">
-        <main className="pb-[72px]">{children}</main>
-        <BottomNav />
-        <ToastContainer />
+        <AppShell>{children}</AppShell>
       </body>
     </html>
   );
