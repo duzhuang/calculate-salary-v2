@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { verifyToken } from "@/lib/auth";
 
 // 不需要认证的路径
-const publicPaths = ["/login", "/api/auth/login", "/api/auth/logout"];
+const publicPaths = ["/login", "/api/auth/login", "/api/auth/logout", "/api/health"];
 
 function isPublicPath(pathname: string): boolean {
   return publicPaths.some((path) => pathname.startsWith(path));
